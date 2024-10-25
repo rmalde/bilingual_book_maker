@@ -37,10 +37,11 @@ class Claude(Base):
             language=self.language,
         )
         message = [{"role": "user", "content": prompt}]
+        print(message)
         r = self.client.messages.create(
             max_tokens=4096,
             messages=message,
-            model="claude-3-haiku-20240307",  # default it for now
+            model="claude-3-5-sonnet-20241022",  # default it for now
         )
         t_text = r.content[0].text
         # api limit rate and spider rule
