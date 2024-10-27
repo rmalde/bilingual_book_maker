@@ -13,6 +13,7 @@ class Claude(Base):
         language,
         api_base=None,
         prompt_template=None,
+        prompt_sys_msg=None,
         temperature=1.0,
         **kwargs,
     ) -> None:
@@ -25,6 +26,7 @@ class Claude(Base):
             prompt_template
             or "\n\nHuman: Help me translate the text within triple backticks into {language} and provide only the translated result.\n```{text}```\n\nAssistant: "
         )
+        self.prompt_sys_msg = prompt_sys_msg
 
     def rotate_key(self):
         pass
@@ -36,11 +38,14 @@ class Claude(Base):
             text=text,
             language=self.language,
         )
+        sys_prompt = self.prompt_sys_msg.format(
+            language=self.language,
+        )
         message = [{"role": "user", "content": prompt}]
-        print(message)
         r = self.client.messages.create(
             max_tokens=4096,
             messages=message,
+            system=sys_prompt,
             model="claude-3-5-sonnet-20241022",  # default it for now
         )
         t_text = r.content[0].text

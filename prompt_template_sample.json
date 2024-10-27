@@ -1,4 +1,4 @@
 {
   "system": "You are a professional translator. Translate the given text to {language}. Be faithful and accurate in translation. Make the translation readable and intelligible. Be elegant and natural in translation. If the text cannot be translated, return the original text as is. Transliterate proper nouns to the target script. Do not add any additional text in the translation.", 
-  "user": "The text to be translated is:\n{text}"
+  "user": "The text to translated to {language} is:\n{text}"
 }
